@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayush Raj Chauhan | MBA Finance</title>
+
+    <style>
+        /* Basic page settings */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.6;
+            background: #f5f7fb;
+            color: #1f2937;
+        }
+
+        /* Main website container */
+        .container {
+            width: 90%;
+            max-width: 1050px;
+            margin: auto;
+        }
+
+        /* Header section */
+        header {
+            background: #0f2747;
+            color: white;
+            padding: 60px 20px;
+            text-align: center;
+        }
+
+        .profile-photo {
+            width: 145px;
+            height: 145px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid white;
+            margin-bottom: 20px;
+        }
+
+        header h1 {
+            font-size: 2.4rem;
+            margin-bottom: 8px;
+        }
+
+        header p {
+            font-size: 1.15rem;
+            opacity: 0.9;
+        }
+
+        /* Main content sections */
+        section {
+            background: white;
+            margin: 25px 0;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+        }
+
+        section h2 {
+            color: #0f2747;
+            margin-bottom: 18px;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 8px;
+        }
+
+        /* Skills tags */
+        .skills {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .skill {
+            background: #e8eef7;
+            color: #0f2747;
+            padding: 7px 13px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        /* Education and experience entries */
+        .entry {
+            margin-bottom: 25px;
+        }
+
+        .entry:last-child {
+            margin-bottom: 0;
+        }
+
+        .entry h3 {
+            color: #111827;
+            margin-bottom: 4px;
+        }
+
+        .date {
+            color: #64748b;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+        }
+
+        .entry ul {
+            padding-left: 20px;
+        }
+
+        /* Connect section */
+        .connect-section {
+            text-align: center;
+        }
+
+        .connect-button {
+            background: #0f2747;
+            color: white;
+            border: none;
+            padding: 15px 35px;
+            border-radius: 8px;
+            font-size: 1.05rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .connect-button:hover {
+            background: #173d6d;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 25px;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        /* Popup background */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        /* Popup box */
+        .modal-content {
+            background: white;
+            max-width: 520px;
+            width: 100%;
+            margin: 5vh auto;
+            padding: 30px;
+            border-radius: 12px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.25);
+        }
+
+        .modal-content h2 {
+            color: #0f2747;
+            margin-bottom: 20px;
+        }
+
+        /* Close button */
+        .close-button {
+            position: absolute;
+            right: 18px;
+            top: 12px;
+            border: none;
+            background: transparent;
+            font-size: 28px;
+            cursor: pointer;
+            color: #64748b;
+        }
+
+        /* Form fields */
+        .form-group {
+            margin-bottom: 16px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #374151;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .country-select {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            padding: 11px 12px;
+            font-size: 1rem;
+            outline: none;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .country-select:focus {
+            border-color: #0f2747;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 110px;
+        }
+
+        /* Phone controls */
+        .phone-wrapper {
+            display: flex;
+            gap: 8px;
+        }
+
+        .country-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            min-width: 150px;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            padding: 0 7px;
+            background: white;
+        }
+
+        .country-control img {
+            width: 24px;
+            height: 18px;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
+
+        .country-select {
+            border: none;
+            padding: 10px 3px;
+            background: transparent;
+            min-width: 105px;
+        }
+
+        .phone-number {
+            flex: 1;
+            min-width: 0;
+        }
+
+        /* Error and success messages */
+        .error-message {
+            display: none;
+            color: #dc2626;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        .success-message {
+            display: none;
+            color: #15803d;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+
+        /* Submit button */
+        .submit-button {
+            width: 100%;
+            background: #0f2747;
+            color: white;
+            border: none;
+            padding: 13px;
+            border-radius: 7px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .submit-button:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        /* Mobile layout */
+        @media (max-width: 600px) {
+            header {
+                padding: 45px 15px;
+            }
+
+            header h1 {
+                font-size: 1.9rem;
+            }
+
+            section {
+                padding: 22px;
+            }
+
+            .phone-wrapper {
+                flex-direction: column;
+            }
+
+            .country-control {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Header with profile photo and basic information -->
+    <header>
+        <div class="container">
+            <img src="profile.jpg" alt="Ayush Raj Chauhan" class="profile-photo">
+
+            <h1>Ayush Raj Chauhan</h1>
+
+            <p>MBA (Finance) Candidate | Finance &amp; Business Operations</p>
+        </div>
+    </header>
+
+    <main class="container">
+
+        <!-- About section -->
+        <section id="about">
+            <h2>About</h2>
+
+            <p>
+                MBA (Finance) candidate at Chandigarh University with a BBA from
+                MAIMS Delhi and hands-on exposure to corporate finance through
+                an internship at Radico Khaitan Limited. Skilled in SQL,
+                email management and event planning, with sales experience and
+                a strong interest in finance, analysis and business operations.
+            </p>
+        </section>
+
+        <!-- Skills section -->
+        <section id="skills">
+            <h2>Skills</h2>
+
+            <div class="skills">
+                <span class="skill">SQL</span>
+                <span class="skill">Email Management</span>
+                <span class="skill">Event Planning</span>
+                <span class="skill">Financial Reporting Support</span>
+                <span class="skill">Sales</span>
+                <span class="skill">Business Administration</span>
+                <span class="skill">Communication</span>
+                <span class="skill">Teamwork</span>
+                <span class="skill">Time Management</span>
+                <span class="skill">Customer Handling</span>
+            </div>
+        </section>
+
+        <!-- Education section -->
+        <section id="education">
+            <h2>Education</h2>
+
+            <div class="entry">
+                <h3>Chandigarh University</h3>
+                <div class="date">July 2026 – June 2028</div>
+                <p>Master of Business Administration (MBA), Finance</p>
+            </div>
+
+            <div class="entry">
+                <h3>
+                    Maharaja Agrasen Institute of Management Studies (MAIMS), Delhi
+                </h3>
+                <div class="date">2021 – 2024</div>
+                <p>Bachelor of Business Administration (BBA), Business Administration and Management</p>
+            </div>
+        </section>
+
+        <!-- Professional experience section -->
+        <section id="experience">
+            <h2>Experience</h2>
+
+            <div class="entry">
+                <h3>Radico Khaitan Limited</h3>
+                <div class="date">Finance Intern | August 2023 – October 2023</div>
+
+                <ul>
+                    <li>Supported the finance team with day-to-day accounting and financial reporting tasks.</li>
+                    <li>Assisted in maintaining and organising financial records, data and documentation.</li>
+                    <li>Gained practical exposure to corporate finance processes at a leading listed spirits manufacturer.</li>
+                </ul>
+            </div>
+
+            <div class="entry">
+                <h3>Younity.in</h3>
+                <div class="date">Commission Sales Associate | August 2023</div>
+
+                <ul>
+                    <li>Promoted products and services to prospective customers on a commission basis.</li>
+                    <li>Built communication, negotiation and client-handling skills in a target-driven role.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Connect button -->
+        <section class="connect-section">
+            <h2>Let's Connect</h2>
+
+            <p style="margin-bottom: 20px;">
+                Have an enquiry? Feel free to get in touch.
+            </p>
+
+            <button type="button" class="connect-button" id="connectButton">
+                Connect with me
+            </button>
+        </section>
+
+    </main>
+
+    <!-- Enquiry popup -->
+    <div class="modal" id="enquiryModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+
+        <div class="modal-content">
+
+            <button type="button" class="close-button" id="closeButton" aria-label="Close">
+                &times;
+            </button>
+
+            <h2 id="modalTitle">Send an Enquiry</h2>
+
+            <form id="enquiryForm" novalidate>
+
+                <!-- Full name field -->
+                <div class="form-group">
+                    <label for="name">Full name *</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        required
+                        autocomplete="name"
+                    >
+                </div>
+
+                <!-- Email field -->
+                <div class="form-group">
+                    <label for="email">Email *</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        required
+                        autocomplete="email"
+                    >
+                    <div class="error-message" id="emailError">
+                        Please enter a valid email address.
+                    </div>
+                </div>
+
+                <!-- Mobile field -->
+                <div class="form-group">
+                    <label for="mobile">Mobile number *</label>
+
+                    <div class="phone-wrapper">
+
+                        <div class="country-control">
+                            <img
+                                id="countryFlag"
+                                src="https://flagcdn.com/24x18/in.png"
+                                alt="Country flag"
+                            >
+
+                            <select
+                                id="countryCode"
+                                class="country-select"
+                                aria-label="Country code"
+                            >
+                                <option value="IN" data-dial="+91">IN +91</option>
+                                <option value="US" data-dial="+1">US +1</option>
+                                <option value="GB" data-dial="+44">GB +44</option>
+                                <option value="AE" data-dial="+971">AE +971</option>
+                                <option value="CA" data-dial="+1">CA +1</option>
+                                <option value="AU" data-dial="+61">AU +61</option>
+                                <option value="SG" data-dial="+65">SG +65</option>
+                                <option value="SA" data-dial="+966">SA +966</option>
+                                <option value="QA" data-dial="+974">QA +974</option>
+                                <option value="NP" data-dial="+977">NP +977</option>
+                                <option value="BD" data-dial="+880">BD +880</option>
+                                <option value="LK" data-dial="+94">LK +94</option>
+                                <option value="DE" data-dial="+49">DE +49</option>
+                            </select>
+                        </div>
+
+                        <input
+                            type="tel"
+                            id="mobile"
+                            name="mobile"
+                            class="phone-number"
+                            required
+                            inputmode="numeric"
+                            autocomplete="tel"
+                            pattern="[6-9][0-9]{9}"
+                        >
+                    </div>
+
+                    <div class="error-message" id="mobileError"></div>
+                </div>
+
+                <!-- Enquiry field -->
+                <div class="form-group">
+                    <label for="enquiry">Enquiry *</label>
+                    <textarea
+                        id="enquiry"
+                        name="enquiry"
+                        required
+                    ></textarea>
+                </div>
+
+                <!-- Submit button -->
+                <button type="submit" class="submit-button" id="submitButton">
+                    Submit
+                </button>
+
+                <!-- Success message -->
+                <div class="success-message" id="successMessage"></div>
+
+                <!-- General error message -->
+                <div class="error-message" id="generalError"></div>
+
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2026 Ayush Raj Chauhan</p>
+    </footer>
+
+
+    <script>
+        // Put your n8n webhook URL here.
+        const WEBHOOK_URL = "PASTE_YOUR_N8N_WEBHOOK_URL_HERE";
+
+        // Put your optional IPinfo token here.
+        const IPINFO_TOKEN = "";
+
+        // This regular expression checks whether an email looks valid.
+        const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
+
+        // These elements are used throughout the script.
+        const connectButton = document.getElementById("connectButton");
+        const enquiryModal = document.getElementById("enquiryModal");
+        const closeButton = document.getElementById("closeButton");
+        const enquiryForm = document.getElementById("enquiryForm");
+
+        const nameInput = document.getElementById("name");
+        const emailInput = document.getElementById("email");
+        const mobileInput = document.getElementById("mobile");
+        const enquiryInput = document.getElementById("enquiry");
+
+        const countryCode = document.getElementById("countryCode");
+        const countryFlag = document.getElementById("countryFlag");
+
+        const emailError = document.getElementById("emailError");
+        const mobileError = document.getElementById("mobileError");
+        const generalError = document.getElementById("generalError");
+        const successMessage = document.getElementById("successMessage");
+
+        const submitButton = document.getElementById("submitButton");
+
+        // This stores the visitor information returned by IPinfo.
+        let visitorInfo = {
+            city: "",
+            region: "",
+            country: ""
+        };
+
+        // This prevents the IPinfo request from running more than once.
+        let locationLookupDone = false;
+
+        // This updates the country flag and phone validation rule.
+        function updateCountrySettings() {
+            const selectedOption =
+                countryCode.options[countryCode.selectedIndex];
+
+            const selectedCountry = countryCode.value.toLowerCase();
+
+            const dialCode = selectedOption.dataset.dial;
+
+            countryFlag.src =
+                "https://flagcdn.com/24x18/" +
+                selectedCountry +
+                ".png";
+
+            if (countryCode.value === "IN") {
+                mobileInput.pattern = "[6-9][0-9]{9}";
+                mobileInput.title =
+                    "India numbers must contain exactly 10 digits and start with 6, 7, 8 or 9.";
+            } else {
+                mobileInput.pattern = "[0-9]{6,15}";
+                mobileInput.title =
+                    "Phone numbers must contain 6 to 15 digits.";
+            }
+
+            return dialCode;
+        }
+
+        // This selects a country from the IPinfo country code.
+        function selectCountryFromIP(country) {
+            if (!country) {
+                countryCode.value = "IN";
+                updateCountrySettings();
+                return;
+            }
+
+            const countryUpper = country.toUpperCase();
+
+            const countryExists = Array.from(countryCode.options).some(
+                option => option.value === countryUpper
+            );
+
+            if (countryExists) {
+                countryCode.value = countryUpper;
+            } else {
+                countryCode.value = "IN";
+            }
+
+            updateCountrySettings();
+        }
+
+        // This calls IPinfo only when the Connect popup opens.
+        async function lookupVisitorLocation() {
+            if (locationLookupDone) {
+                return;
+            }
+
+            locationLookupDone = true;
+
+            try {
+                let ipinfoUrl = "https://ipinfo.io/json";
+
+                if (IPINFO_TOKEN.trim() !== "") {
+                    ipinfoUrl += "?token=" +
+                        encodeURIComponent(IPINFO_TOKEN.trim());
+                }
+
+                const response = await fetch(ipinfoUrl);
+
+                if (!response.ok) {
+                    throw new Error("Location lookup failed");
+                }
+
+                const result = await response.json();
+
+                // Print the complete IPinfo reply in the browser console.
+                console.log("IPinfo reply:", result);
+
+                visitorInfo.city = result.city || "";
+                visitorInfo.region = result.region || "";
+                visitorInfo.country = result.country || "";
+
+                selectCountryFromIP(visitorInfo.country);
+
+            } catch (error) {
+                // If IPinfo fails, silently continue with India.
+                visitorInfo = {
+                    city: "",
+                    region: "",
+                    country: ""
+                };
+
+                countryCode.value = "IN";
+                updateCountrySettings();
+            }
+        }
+
+        // This opens the enquiry popup and starts the location lookup.
+        connectButton.addEventListener("click", function () {
+            enquiryModal.style.display = "block";
+
+            lookupVisitorLocation();
+
+            setTimeout(function () {
+                nameInput.focus();
+            }, 50);
+        });
+
+        // This closes the enquiry popup.
+        function closeModal() {
+            enquiryModal.style.display = "none";
+        }
+
+        // This closes the popup when the X button is clicked.
+        closeButton.addEventListener("click", closeModal);
+
+        // This closes the popup when the user clicks outside the popup box.
+        enquiryModal.addEventListener("click", function (event) {
+            if (event.target === enquiryModal) {
+                closeModal();
+            }
+        });
+
+        // This lets the user close the popup with the Escape key.
+        document.addEventListener("keydown", function (event) {
+            if (event.key === "Escape" &&
+                enquiryModal.style.display === "block") {
+                closeModal();
+            }
+        });
+
+        // This changes the flag and validation whenever the country changes.
+        countryCode.addEventListener("change", function () {
+            updateCountrySettings();
+
+            mobileInput.value = "";
+            mobileError.style.display = "none";
+        });
+
+        // This checks the email using the required EMAIL_REGEX and .test().
+        emailInput.addEventListener("input", function () {
+            const email = emailInput.value.trim();
+
+            if (email === "") {
+                emailError.style.display = "none";
+                return;
+            }
+
+            if (!EMAIL_REGEX.test(email)) {
+                emailError.textContent =
+                    "Please enter a valid email address.";
+
+                emailError.style.display = "block";
+            } else {
+                emailError.style.display = "none";
+            }
+        });
+
+        // This allows only numbers to be entered in the mobile field.
+        mobileInput.addEventListener("input", function () {
+            mobileInput.value = mobileInput.value.replace(/\D/g, "");
+
+            validateMobile();
+        });
+
+        // This checks the mobile number using the current HTML pattern.
+        function validateMobile() {
+            const value = mobileInput.value.trim();
+
+            if (value === "") {
+                mobileError.style.display = "none";
+                return false;
+            }
+
+            if (!mobileInput.checkValidity()) {
+                if (countryCode.value === "IN") {
+                    mobileError.textContent =
+                        "Please enter exactly 10 digits starting with 6, 7, 8 or 9.";
+                } else {
+                    mobileError.textContent =
+                        "Please enter a phone number containing 6 to 15 digits.";
+                }
+
+                mobileError.style.display = "block";
+                return false;
+            }
+
+            mobileError.style.display = "none";
+            return true;
+        }
+
+        // This clears old messages before a new submission.
+        function clearMessages() {
+            emailError.style.display = "none";
+            mobileError.style.display = "none";
+            generalError.style.display = "none";
+            successMessage.style.display = "none";
+            generalError.textContent = "";
+            successMessage.textContent = "";
+        }
+
+        // This handles form validation and sends the enquiry to n8n.
+        enquiryForm.addEventListener("submit", async function (event) {
+            event.preventDefault();
+
+            clearMessages();
+
+            const name = nameInput.value.trim();
+            const email = emailInput.value.trim();
+            const mobile = mobileInput.value.trim();
+            const enquiry = enquiryInput.value.trim();
+
+            // Check that all required fields have a value.
+            if (!name || !email || !mobile || !enquiry) {
+                generalError.textContent =
+                    "Please fill in all required fields.";
+
+                generalError.style.display = "block";
+                return;
+            }
+
+            // Check the email with the required regex and .test() method.
+            if (!EMAIL_REGEX.test(email)) {
+                emailError.textContent =
+                    "Please enter a valid email address.";
+
+                emailError.style.display = "block";
+                emailInput.focus();
+                return;
+            }
+
+            // Check the mobile number using its current HTML pattern.
+            if (!validateMobile()) {
+                mobileInput.focus();
+                return;
+            }
+
+            // Stop the request if the n8n URL has not been configured.
+            if (WEBHOOK_URL === "PASTE_YOUR_N8N_WEBHOOK_URL_HERE") {
+                alert(
+                    "Please replace PASTE_YOUR_N8N_WEBHOOK_URL_HERE with your n8n webhook URL before submitting."
+                );
+                return;
+            }
+
+            // Get the selected dial code.
+            const selectedOption =
+                countryCode.options[countryCode.selectedIndex];
+
+            const dialCode = selectedOption.dataset.dial;
+
+            // Build the JSON object that will be sent to n8n.
+            const data = {
+                name: name,
+                email: email,
+                mobile: dialCode + " " + mobile,
+                enquiry: enquiry,
+                source: "CV website",
+                visitor: {
+                    city: visitorInfo.city || "",
+                    region: visitorInfo.region || "",
+                    country: visitorInfo.country || ""
+                }
+            };
+
+            // Print the final JSON object in the browser console.
+            console.log("Enquiry data:", data);
+
+            // Show Sending... while the request is running.
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+
+            try {
+                // Send the JSON object to the n8n webhook.
+                const response = await fetch(WEBHOOK_URL, {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify(data)
+                });
+
+                // Handle an n8n validation error with status 400.
+                if (response.status === 400) {
+                    let errorData = {};
+
+                    try {
+                        errorData = await response.json();
+                    } catch (error) {
+                        errorData = {};
+                    }
+
+                    generalError.textContent =
+                        errorData.message ||
+                        "The enquiry could not be submitted.";
+
+                    generalError.style.display = "block";
+                    return;
+                }
+
+                // Handle any other unsuccessful HTTP response.
+                if (!response.ok) {
+                    throw new Error(
+                        "The server returned an unsuccessful response."
+                    );
+                }
+
+                // Show the successful submission message.
+                successMessage.textContent =
+                    "Thank you, " + name +
+                    ". Your enquiry has been received.";
+
+                successMessage.style.display = "block";
+
+                // Clear the form after successful submission.
+                enquiryForm.reset();
+
+                // Restore the default India settings after reset.
+                countryCode.value = "IN";
+                updateCountrySettings();
+
+            } catch (error) {
+                // Show a friendly error if the request fails.
+                generalError.textContent =
+                    "Sorry, something went wrong while sending your enquiry. Please try again later.";
+
+                generalError.style.display = "block";
+
+                console.error("Webhook error:", error);
+
+            } finally {
+                // Restore the Submit button after the request finishes.
+                submitButton.disabled = false;
+                submitButton.textContent = "Submit";
+            }
+        });
+
+        // Set India as the initial country and validation rule.
+        updateCountrySettings();
+    </script>
+
+</body>
+</html>
